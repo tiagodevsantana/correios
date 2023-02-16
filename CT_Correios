@@ -1,0 +1,36 @@
+//Challenge Correios!
+
+it ('entrar no site dos Correios', function(){
+
+let cep_incorreto = "80700000"
+let cep_correto = "01013001"
+let codigo_incorreto = "SS987654321BR"
+let home = "https://www.correios.com.br/"
+
+
+  cy.visit(home);
+
+//Procurar pelo CEP incorreto e validar inexistência
+
+  cy.get("[id='relaxation']").type(cep_incorreto);
+  cy.get('form').invoke('removeAttr', 'target');
+  cy.get("[class='ic-busca-out']").eq(1).click();
+  cy.get("h6").should("have.text", "Dados não encontrado");
+  cy.get("[class='logo']").click();
+
+//Procurar pelo cep correto e confirmar endereço
+
+  cy.get("[id='relaxation']").type(cep_correto);
+  cy.get('form').invoke('removeAttr', 'target');
+  cy.get("[class='ic-busca-out']").eq(1).click();
+  cy.get("td[data-th='Logradouro/Nome']").should("have.text", "Rua Quinze de Novembro - lado ímpar");
+  cy.get("[class='logo']").click();
+
+//Procurar código de rastreamento e validar inexistência
+
+  cy.get("[id='objetos']").type(codigo_incorreto);
+  cy.get('form').invoke('removeAttr', 'target');
+  
+  //Não tem como automatizar Captcha
+
+  cy.visit(home);
