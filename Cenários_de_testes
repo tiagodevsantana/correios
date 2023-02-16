@@ -14,3 +14,26 @@ Desafio:
 10.	Fechar o browser;
 
 **************************************************************************************************
+[CT-01] Validação de CEP inválido
+
+Dado acessar o site www.correios.com.br
+Quando clicar em "Busca por CEP"
+E inserir o CEP incorreto
+E clicar na lupa
+Então deverá informar "Dados não encontrado"
+
+[CT-02] Validação de CEP válido
+
+Dado acessar o site www.correios.com.br
+Quando clicar em "Busca por CEP"
+E inserir o CEP correto
+E clicar na lupa
+Então deverá informar "Rua Quinze de Novembro - lado ímpar"
+
+[CT-03] Validação de Codigo de Rastreamento inválido
+
+Dado acessar o site www.correios.com.br
+Quando clicar em "Codigo de Rastreio"
+E inserir o código incorreto
+E clicar na lupa
+Então deverá aparecer página com captcha
