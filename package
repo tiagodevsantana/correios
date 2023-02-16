@@ -1,0 +1,20 @@
+{
+  "name": "traning-wheels",
+  "version": "1.0.0",
+  "description": "projeto cypress web",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress open"
+  },
+  "keywords": [
+    "cypress",
+    "nodejs",
+    "traning-wheels",
+    "qa"
+  ],
+  "author": "Tiago Santana",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^12.5.1"
+  }
+}
