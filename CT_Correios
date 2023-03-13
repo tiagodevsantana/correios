@@ -1,36 +1,46 @@
-//Challenge Correios!
+describe("Challenge Correios", function () {
 
-it ('entrar no site dos Correios', function(){
+  //Variaveis de Dados
 
-let cep_incorreto = "80700000"
-let cep_correto = "01013001"
-let codigo_incorreto = "SS987654321BR"
-let home = "https://www.correios.com.br/"
+  let cep_incorreto = "80700000"
+  let cep_correto = "01013001"
+  let codigo_incorreto = "SS987654321BR"
+  let home = "https://www.correios.com.br/"
+
+  beforeEach(function () {
+
+    cy.visit(home);
+
+    //Procurar pelo CEP incorreto e validar inexistência
+
+    cy.get("[id='relaxation']").type(cep_incorreto);
+    cy.get('form').invoke('removeAttr', 'target');
+    cy.get("[class='ic-busca-out']").eq(1).click();
+    cy.get("h6").should("have.text", "Dados não encontrado");
+    cy.get("[class='logo']").click();
+    cy.screeshot();
 
 
-  cy.visit(home);
+    //Procurar pelo cep correto e confirmar endereço
 
-//Procurar pelo CEP incorreto e validar inexistência
+    cy.get("[id='relaxation']").type(cep_correto);
+    cy.get('form').invoke('removeAttr', 'target');
+    cy.get("[class='ic-busca-out']").eq(1).click();
+    cy.get("td[data-th='Logradouro/Nome']").should("have.text", "Rua Quinze de Novembro - lado ímpar");
+    cy.get("[class='logo']").click();
 
-  cy.get("[id='relaxation']").type(cep_incorreto);
-  cy.get('form').invoke('removeAttr', 'target');
-  cy.get("[class='ic-busca-out']").eq(1).click();
-  cy.get("h6").should("have.text", "Dados não encontrado");
-  cy.get("[class='logo']").click();
+    //Procurar código de rastreamento e validar inexistência
 
-//Procurar pelo cep correto e confirmar endereço
+    cy.get("[id='objetos']").type(codigo_incorreto);
+    cy.get('form').invoke('removeAttr', 'target');
 
-  cy.get("[id='relaxation']").type(cep_correto);
-  cy.get('form').invoke('removeAttr', 'target');
-  cy.get("[class='ic-busca-out']").eq(1).click();
-  cy.get("td[data-th='Logradouro/Nome']").should("have.text", "Rua Quinze de Novembro - lado ímpar");
-  cy.get("[class='logo']").click();
+    //Não tem como automatizar Captcha
 
-//Procurar código de rastreamento e validar inexistência
+    cy.visit(home);
 
-  cy.get("[id='objetos']").type(codigo_incorreto);
-  cy.get('form').invoke('removeAttr', 'target');
-  
-  //Não tem como automatizar Captcha
+    //Fechar browser
+    it("Finalizar home", function () {});
 
-  cy.visit(home);
+  });
+
+});
